@@ -20,8 +20,6 @@ async function run() {
         const database = client.db('osahan-jewelry');
         const productsCollection = database.collection('products');
 
-
-
     }
     finally {
         // await client.close();
@@ -31,7 +29,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-    res.send('Hello Doctors portal!')
+    res.send('Hello osahan-jewelry')
 })
 
 app.listen(port, () => {
