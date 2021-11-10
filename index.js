@@ -19,12 +19,21 @@ async function run() {
         await client.connect();
         const database = client.db('osahan-jewelry');
         const productsCollection = database.collection('products');
+        const orderCollection = database.collection('orders');
         //GET Products API
         app.get('/products', async (req, res) => {
             const cursor = productsCollection.find({});
             const products = await cursor.toArray();
             res.send(products);
         })
+
+        //add Order
+        app.post("/orders", (req, res) => {
+
+            orderCollection.insertOne(req.body).then((documents) => {
+                res.send(documents.insertedId);
+            });
+        });
     }
     finally {
         // await client.close();
