@@ -21,6 +21,7 @@ async function run() {
         const productsCollection = database.collection('products');
         const orderCollection = database.collection('orders');
         const reviewCollection = database.collection('review');
+        const usersCollection = database.collection('users');
         //GET Products API
         app.get('/products', async (req, res) => {
             const cursor = productsCollection.find({});
@@ -86,6 +87,13 @@ async function run() {
 
             res.send(events);
         })
+        //POST User Data
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            const result = await usersCollection.insertOne(user);
+            console.log(result);
+            res.json(result);
+        });
     }
     finally {
         // await client.close();
