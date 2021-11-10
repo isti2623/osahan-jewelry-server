@@ -20,6 +20,7 @@ async function run() {
         const database = client.db('osahan-jewelry');
         const productsCollection = database.collection('products');
         const orderCollection = database.collection('orders');
+        const reviewCollection = database.collection('review');
         //GET Products API
         app.get('/products', async (req, res) => {
             const cursor = productsCollection.find({});
@@ -57,6 +58,22 @@ async function run() {
         //GET all Orders API
         app.get('/myOrders', async (req, res) => {
             const cursor = await orderCollection.find({});
+            const events = await cursor.toArray();
+
+            res.send(events);
+        })
+
+        //add Reviews
+        app.post("/addReviews", (req, res) => {
+
+            reviewCollection.insertOne(req.body).then((documents) => {
+                res.send(documents.insertedId);
+            });
+        });
+
+        //GET API
+        app.get('/addReviews', async (req, res) => {
+            const cursor = reviewCollection.find({});
             const events = await cursor.toArray();
 
             res.send(events);
