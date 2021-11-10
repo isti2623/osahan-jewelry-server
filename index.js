@@ -38,12 +38,48 @@ async function run() {
             });
         });
 
+        //GET all Orders API
+        app.get('/orders', async (req, res) => {
+            const cursor = await orderCollection.find({});
+            const events = await cursor.toArray();
+
+            res.send(events);
+        })
+
         //add Order
         app.post("/orders", (req, res) => {
 
             orderCollection.insertOne(req.body).then((documents) => {
                 res.send(documents.insertedId);
             });
+        });
+
+        // delete manage all Order
+
+        app.delete("/orders/:id", async (req, res) => {
+
+            const result = await orderCollection.deleteOne({
+                _id: ObjectId(req.params.id),
+            });
+            res.send(result);
+        });
+
+        //update product
+        app.put("/orders/:id", async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+
+            orderCollection
+                .updateOne(filter, {
+                    $set: {
+                        status: "Shipped"
+                    },
+                })
+                .then((result) => {
+                    res.send(result);
+                    console.log(result);
+                });
+
         });
 
         //add my orders
