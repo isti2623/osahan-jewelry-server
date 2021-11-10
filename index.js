@@ -28,6 +28,14 @@ async function run() {
             res.send(products);
         })
 
+        //add product
+        app.post("/addProducts", (req, res) => {
+
+            productsCollection.insertOne(req.body).then((documents) => {
+                res.send(documents.insertedId);
+            });
+        });
+
         //add Order
         app.post("/orders", (req, res) => {
 
@@ -63,7 +71,7 @@ async function run() {
             res.send(events);
         })
 
-        //add Reviews
+        //Post add Reviews
         app.post("/addReviews", (req, res) => {
 
             reviewCollection.insertOne(req.body).then((documents) => {
@@ -71,7 +79,7 @@ async function run() {
             });
         });
 
-        //GET API
+        //GET  Reviews API
         app.get('/addReviews', async (req, res) => {
             const cursor = reviewCollection.find({});
             const events = await cursor.toArray();
