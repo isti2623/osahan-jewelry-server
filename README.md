@@ -1,6 +1,6 @@
 ## Osahan Jewelry
 ---
-is a full-stack web-based application that offers different types of Traveling jobs to the people.
+is a full-stack web-based application that offers different types of Jewelery  Shop to the people.
 
 Live Site:  **[ Osahan Jewelry ](https://osahan-jewelry.web.app/)**. 
 
