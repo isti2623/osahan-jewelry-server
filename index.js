@@ -30,6 +30,16 @@ async function run() {
             res.send(products);
         })
 
+        // delete Products
+
+        app.delete("/products/:id", async (req, res) => {
+
+            const result = await productsCollection.deleteOne({
+                _id: ObjectId(req.params.id),
+            });
+            res.send(result);
+        });
+
         //add product
         app.post("/addProducts", (req, res) => {
 
